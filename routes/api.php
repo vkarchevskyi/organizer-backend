@@ -16,4 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+Route::middleware('auth:sanctum')->name('todo')->prefix('/todo')->group(function () {
+
+    Route::resource('list', \App\Http\Controllers\TodoListController::class)
+        ->only(['index', 'store', 'show', 'update', 'destroy']);
+
+});
+
+Route::middleware('guest')->name('auth.')->prefix('/auth')->group(function () {
+    Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+    Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
 });
