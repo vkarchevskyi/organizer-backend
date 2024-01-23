@@ -9,9 +9,6 @@ use App\DTO\TodoList\IndexTodoListsDTO;
 use App\DTO\TodoList\ShowTodoListDTO;
 use App\DTO\TodoList\StoreTodoListDTO;
 use App\DTO\TodoList\UpdateTodoListDTO;
-use App\Http\Requests\TodoList\DestroyTodoListRequest;
-use App\Http\Requests\TodoList\IndexTodoListsRequest;
-use App\Http\Requests\TodoList\ShowTodoListRequest;
 use App\Http\Requests\TodoList\StoreTodoListRequest;
 use App\Http\Requests\TodoList\UpdateTodoListRequest;
 use App\Services\TodoList\DestroyTodoListService;
@@ -19,12 +16,13 @@ use App\Services\TodoList\IndexTodoListsService;
 use App\Services\TodoList\ShowTodoListService;
 use App\Services\TodoList\StoreTodoListService;
 use App\Services\TodoList\UpdateTodoListService;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class TodoListController extends Controller
 {
-    public function index(IndexTodoListsRequest $request, IndexTodoListsService $service): JsonResponse
+    public function index(Request $request, IndexTodoListsService $service): JsonResponse
     {
         return response()->json([
             $service->run(new IndexTodoListsDTO($request->user()->id)),
@@ -40,7 +38,7 @@ class TodoListController extends Controller
         ]);
     }
 
-    public function show(ShowTodoListRequest $request, int $id, ShowTodoListService $service): JsonResponse
+    public function show(int $id, ShowTodoListService $service): JsonResponse
     {
         return response()->json([
             $service->run(new ShowTodoListDTO($id)),
@@ -56,7 +54,7 @@ class TodoListController extends Controller
         ]);
     }
 
-    public function destroy(DestroyTodoListRequest $request, int $id, DestroyTodoListService $service): JsonResponse
+    public function destroy(int $id, DestroyTodoListService $service): JsonResponse
     {
         return response()->json([
             $service->run(new DestroyTodoListDTO($id)),
