@@ -12,6 +12,7 @@ class UpdateTodoListService
     public function run(UpdateTodoListDTO $listDTO): bool
     {
         return (bool) TodoList::query()
+            ->where('creator_id', '=', $listDTO->creator_id)
             ->where('id', '=', $listDTO->id)
             ->update([
                 'name' => $listDTO->name

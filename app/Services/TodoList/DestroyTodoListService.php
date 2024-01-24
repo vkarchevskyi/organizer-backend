@@ -12,6 +12,7 @@ class DestroyTodoListService
     public function run(DestroyTodoListDTO $listDTO): bool
     {
         return (bool) TodoList::query()
+            ->where('creator_id', '=', $listDTO->creator_id)
             ->where('id', '=', $listDTO->id)
             ->delete();
     }

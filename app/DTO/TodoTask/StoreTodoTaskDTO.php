@@ -8,7 +8,7 @@ readonly class StoreTodoTaskDTO
 {
     public function __construct(
         public string $content,
-        public int $list_id
+        public int $list_id,
     ) {
     }
 }

@@ -3,6 +3,11 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Models\TodoList;
+use App\Models\TodoTask;
+use App\Policies\TodoListPolicy;
+use App\Policies\TodoTaskPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        TodoList::class => TodoListPolicy::class,
+        TodoTask::class => TodoTaskPolicy::class,
     ];
 
     /**

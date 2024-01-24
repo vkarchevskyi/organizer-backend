@@ -38,26 +38,26 @@ class TodoListController extends Controller
         ]);
     }
 
-    public function show(int $id, ShowTodoListService $service): JsonResponse
+    public function show(int $id, Request $request, ShowTodoListService $service): JsonResponse
     {
         return response()->json([
-            $service->run(new ShowTodoListDTO($id)),
+            $service->run(new ShowTodoListDTO($id, $request->user()->id)),
             Response::HTTP_OK
         ]);
     }
 
-    public function update(UpdateTodoListRequest $request, int $id, UpdateTodoListService $service): JsonResponse
+    public function update(int $id, UpdateTodoListRequest $request, UpdateTodoListService $service): JsonResponse
     {
         return response()->json([
-            $service->run(new UpdateTodoListDTO($id, $request->get('name'))),
+            $service->run(new UpdateTodoListDTO($id, $request->get('name'), $request->user()->id)),
             Response::HTTP_OK
         ]);
     }
 
-    public function destroy(int $id, DestroyTodoListService $service): JsonResponse
+    public function destroy(int $id, Request $request, DestroyTodoListService $service): JsonResponse
     {
         return response()->json([
-            $service->run(new DestroyTodoListDTO($id)),
+            $service->run(new DestroyTodoListDTO($id, $request->user()->id)),
             Response::HTTP_OK
         ]);
     }

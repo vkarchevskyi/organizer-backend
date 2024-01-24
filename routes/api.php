@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +18,11 @@ Route::middleware('auth:sanctum')->name('todo')->prefix('/todo')->group(function
     Route::resource('list', \App\Http\Controllers\TodoListController::class)
         ->only(['index', 'store', 'show', 'update', 'destroy']);
 
+    Route::get('/list/{list_id}/tasks', [\App\Http\Controllers\TodoTaskController::class, 'index'])
+        ->name('task.index');
+
     Route::resource('task', \App\Http\Controllers\TodoTaskController::class)
-        ->only(['index', 'store', 'show', 'update', 'destroy']);
+        ->only(['store', 'update', 'destroy']);
 
 });
 

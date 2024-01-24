@@ -8,6 +8,7 @@ readonly class IndexTodoTasksDTO
 {
     public function __construct(
         public int $list_id,
+        public int $creator_id,
     ) {
     }
 }

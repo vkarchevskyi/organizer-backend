@@ -9,11 +9,11 @@ use App\Models\TodoTask;
 
 class StoreTodoTaskService
 {
-    public function run(StoreTodoTaskDTO $todoListDTO): TodoTask
+    public function run(StoreTodoTaskDTO $taskDTO): TodoTask
     {
         return TodoTask::query()->create([
-            'content' => $todoListDTO->content,
-            'list_id' => $todoListDTO->list_id,
+            'content' => $taskDTO->content,
+            'list_id' => $taskDTO->list_id,
         ]);
     }
 }

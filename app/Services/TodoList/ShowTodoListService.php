@@ -11,6 +11,9 @@ class ShowTodoListService
 {
     public function run(ShowTodoListDTO $listDTO): TodoList
     {
-        return TodoList::query()->find($listDTO->id);
+        return TodoList::query()
+            ->where('creator_id', '=', $listDTO->creator_id)
+            ->where('id', '=', $listDTO->id)
+            ->first();
     }
 }

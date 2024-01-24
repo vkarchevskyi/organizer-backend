@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -29,6 +30,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|TodoTask whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TodoTask withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|TodoTask withoutTrashed()
+ * @property int $creator_id
+ * @property-read \App\Models\TodoList $list
+ * @method static \Illuminate\Database\Eloquent\Builder|TodoTask whereCreatorId($value)
  * @mixin \Eloquent
  */
 class TodoTask extends Model
@@ -36,10 +40,19 @@ class TodoTask extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $with = [
+        'list',
+    ];
+
     protected $guarded = [
         'id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function list(): BelongsTo
+    {
+        return $this->belongsTo(TodoList::class);
+    }
 }
